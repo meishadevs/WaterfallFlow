@@ -1,2 +1,6 @@
-# WaterfallFlow
-用于展示瀑布流
+# 一个简单的瀑布流
+- 实现的效果如下
+<img src="jdfw.gif">
+
+- 瀑布流的链接地址[https://meishaxiaozi.github.io/WaterfallFlow/](https://meishaxiaozi.github.io/WaterfallFlow/)
+
