@@ -3,5 +3,5 @@
 <br/>
 <img src="jdfw.gif">
 
-- 瀑布流的链接地址[https://meishadevs.github.io/WaterfallFlow/](https://meishaxiaozi.github.io/WaterfallFlow/)
+- 瀑布流的链接地址[http://meishadevs.com/WaterfallFlow/](http://meishadevs.com/WaterfallFlow/)
 
