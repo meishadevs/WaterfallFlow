@@ -1,25 +1,25 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
 }
 
-#container{
+#container {
     position: relative;
 }
 
-.box{
+.box {
     padding: 5px;
     float: left;
 }
 
-.box-img{
+.box-img {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #ccc;
 }
 
-.box-img img{
+.box-img img {
     width: 150px;
     height: auto;
 }
