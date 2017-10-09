@@ -27,16 +27,16 @@ function loadImage() {
     //创建一个json字符串,用于保存待加载的图片信息
     var imgData = {
         "data": [
-            {"src": "1.jpg"},
-            {"src": "2.jpg"},
-            {"src": "3.jpg"},
-            {"src": "4.jpg"},
-            {"src": "5.jpg"},
-            {"src": "6.jpg"},
-            {"src": "7.jpg"},
-            {"src": "8.jpg"},
-            {"src": "9.jpg"},
-            {"src": "10.jpg"}
+            {"src": "./images/1.jpg"},
+            {"src": "./images/2.jpg"},
+            {"src": "./images/3.jpg"},
+            {"src": "./images/4.jpg"},
+            {"src": "./images/5.jpg"},
+            {"src": "./images/6.jpg"},
+            {"src": "./images/7.jpg"},
+            {"src": "./images/8.jpg"},
+            {"src": "./images/9.jpg"},
+            {"src": "./images/10.jpg"}
         ]
     };
 
@@ -49,32 +49,14 @@ function loadImage() {
         //遍历json字符串中的数据
         for (var i = 0; i < imgData.data.length; i++) {
 
-            //创建一个box
-            var box = document.createElement("div");
+            var tag = '<div class="box">';
+            tag += '<div class="box-img">';
+            tag += '<img src="' + imgData.data[i].src + '">';
+            tag += '</div>';
+            tag += '<div/>';
 
-            //设置box的类选择器名称
-            box.className = "box";
-
-            //将box添加到container中
+            var box = parseDom(tag);
             container.appendChild(box);
-
-            //创建一个boxing
-            var boximg = document.createElement("div");
-
-            //设置boximg的类选择器名称
-            boximg.className = "box-img";
-
-            //将boximg添加到box中
-            box.appendChild(boximg);
-
-            //创建img
-            var img = document.createElement("img");
-
-            //设置img的src属性
-            img.src = "images/" + imgData.data[i].src;
-
-            //将img添加到boxing中
-            boximg.appendChild(img);
         }
 
         //设置图片的CSS样式
@@ -86,20 +68,22 @@ function loadImage() {
 //设置图片的css样式
 function setImageCss(parent, content) {
 
-    //获得id选择器名称为container的div标签
-    var container = document.getElementById(parent);
+    //获得id选择器名称为parent的div标签
+    var container = document.querySelector('#' + parent);
 
-    //获得类选择器名称为box的div标签
+    //获得所有类选择器名称为content的div标签
     var box = getChildElement(container, content);
 
-    //获得第一个box的宽度(每一张图片的宽度)
+    //获得第一个box的宽度(所有box的宽度都一样)
     var boxWidth = box[0].offsetWidth;
 
-    //获得每行可以存放的图片的张数，即box的个数
-    //document.documentElement.clientWidth获得窗口的宽度(获得)
+    //获得每行可放box的个数
+    //document.documentElement.clientWidth获得浏览器窗口的宽度
+    //每行可以放box的个数 = 浏览器窗口的宽度 / 每个box的宽度
     var num = Math.floor(document.documentElement.clientWidth / boxWidth);
 
     //设置container的css样式
+    //boxWidth * num 表示container的宽度
     container.style.cssText = "width:" + boxWidth * num + "px;" + "margin:0 auto;";
 
     //创建数组,保存每个box的高度
@@ -115,7 +99,6 @@ function setImageCss(parent, content) {
         //处理第二行box
         else {
 
-            //获得数组boxHeightArr中最小的数值
             //获得第一行box中，高度最小的box值
             var minHeight = Math.min.apply(null, boxHeightArr);
 
@@ -181,7 +164,7 @@ function getMinHeightIndex(BoxHeightArr, minHeight) {
 function checkFlag() {
 
     //获得container
-    var container = document.getElementById("container");
+    var container = document.querySelector("#container");
 
     //获得container下的所有box
     var box = getChildElement(container, "box");
@@ -189,13 +172,13 @@ function checkFlag() {
     //获得最后一个box顶部到浏览器顶部的距离
     var lastBoxHeight = box[box.length - 1].offsetTop;
 
-    //获得滚动条到浏览器顶部的距离
+    //获得竖直方向上的滑块到浏览器顶部的距离
     var scollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
-    //获得当前页面的高度
-    var pageHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //获得浏览器的高度
+    var winHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
-    if (lastBoxHeight < scollTop + pageHeight) {
+    if (lastBoxHeight < scollTop + winHeight) {
 
         //允许加载图片
         return true;
@@ -207,3 +190,10 @@ function checkFlag() {
     }
 }
 
+
+//将HTML字符串转换成DOM对象
+function parseDom(str) {
+    var ele = document.createElement('div');
+    ele.innerHTML = str;
+    return ele.children[0];
+}
